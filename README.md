@@ -35,6 +35,7 @@ This project is a real-time temperature monitoring system using a **DS18B20** te
 # Interface Options → Serial → Login shell NO, Serial interface YES
 
 🧠 What You Learn
+
 Interfacing with sensors (1-Wire)
 
 Serial communication with GSM modules
@@ -46,6 +47,7 @@ Reading and parsing raw sensor data in Python
 Automating time-based tasks with embedded Linux systems
 
 🛠️ Future Improvements
+
 Add email or Telegram alerts
 
 Web dashboard with live temperature graph
