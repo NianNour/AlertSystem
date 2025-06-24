@@ -1,57 +1,40 @@
-# 🌡️ Raspberry Pi Temperature Monitoring and SMS Alert System
+🌡️ Raspberry Pi Temperature Monitoring & SMS Alert System
 
-This project is a real-time temperature monitoring system using a **DS18B20** temperature sensor and **SIM800C GSM module**, powered by a **Raspberry Pi**. It reads the ambient temperature every 15 minutes and sends an SMS alert via GSM if the temperature goes out of a safe range—or simply reports that it’s normal.
+This is a real-time temperature monitoring system built using a DS18B20 temperature sensor and a SIM800C GSM module, powered by a Raspberry Pi. The system continuously reads the ambient temperature and sends SMS alerts when the temperature goes outside a safe range, or sends periodic status updates when it's normal.
 
-## 🚀 Features
+🚀 Features
 
-- 📡 Sends SMS alerts using AT commands over UART via SIM800C
-- 🌡️ Monitors ambient temperature using a DS18B20 sensor
-- 📈 Sends updates every 15 minutes
-- ⚠️ Alerts for high (>30°C) or low (<10°C) temperature conditions
-- ✅ Reports when temperature is within the normal range (Optional)
+📡 Sends SMS alerts via AT commands over UART to the SIM800C GSM module
+🌡️ Monitors ambient temperature using a DS18B20 digital sensor
+📈 Sends status updates every 15 minutes when temperature is in normal range
+⚠️ Sends immediate alerts for high (> 30°C) or low (< 10°C) temperature
+✅ Notifies when temperature returns to normal after a warning
 
----
+🧰 Hardware Requirements
 
-## 🧰 Hardware Requirements
+Raspberry Pi 4 (or compatible model with UART and GPIO)
+DS18B20 Digital Temperature Sensor
+SIM800C GSM Module (or compatible GSM module)
+Breadboard and jumper wires
+SIM card with active SMS service
+4.7V–5V power supply for SIM800C
+4.7kΩ pull-up resistor between DS18B20 data and VCC
 
-- Raspberry Pi 4 (or compatible)
-- DS18B20 Digital Temperature Sensor
-- SIM800C GSM module (or compatible)
-- Breadboard and jumper wires
-- SIM card with SMS service
-- 4.7V–5V power supply for SIM800C
-- 4.7kΩ pull-up resistor for DS18B20 (between data and VCC)
+🖥️ Software Requirements
 
----
-## 🖥️ Software Requirements
+Raspberry Pi OS (Lite or Desktop)
+Python 3
+Enable required interfaces:
+sudo raspi-config
+# 1. Interfacing Options → 1-Wire → Enable
+# 2. Interface Options → Serial → 
+#    - Login shell: NO  
+#    - Serial interface: YES
 
-- Raspberry Pi OS (Lite or Desktop)
-- Python 3
-- Enable 1-Wire interface:
-  ```bash
-  sudo raspi-config
-  # Interfacing Options → 1-Wire → Enable
-  sudo raspi-config
-# Interface Options → Serial → Login shell NO, Serial interface YES
+🧠 What You’ll Learn
 
-🧠 What You Learn
-
-Interfacing with sensors (1-Wire)
-
-Serial communication with GSM modules
-
-AT command protocol
-
-Reading and parsing raw sensor data in Python
-
-Automating time-based tasks with embedded Linux systems
-
-🛠️ Future Improvements
-
-Add email or Telegram alerts
-
-Web dashboard with live temperature graph
-
-Data logging to file or database
-
-Battery backup and low-voltage detection
+Interfacing digital sensors (1-Wire protocol) with Raspberry Pi
+Communicating with GSM modules via UART and AT commands
+Reading and parsing raw temperature data in Python
+Automating condition-based alerts using time and logic
+Building lightweight, headless monitoring systems with Raspberry Pi
