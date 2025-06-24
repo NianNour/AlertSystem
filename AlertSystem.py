@@ -8,7 +8,7 @@ TEMP_HIGH = 30
 TEMP_LOW = 10
 
 # Phone numbers
-TARGET_PHONE_NUMBER = "+989376818413"
+TARGET_PHONE_NUMBER = "+98****"
 
 # Setup serial for SIM800C
 sim = serial.Serial("/dev/serial0", baudrate=9600, timeout=1)
