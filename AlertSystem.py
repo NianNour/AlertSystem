@@ -4,33 +4,32 @@ import time
 import serial
 
 # Thresholds
-TEMP_HIGH = 30  # High temperature threshold (°C)
-TEMP_LOW = 10   # Low temperature threshold (°C)
+TEMP_HIGH = 30
+TEMP_LOW = 10
 
 # Phone numbers
-RPI_NUMBER = "+989112548017"          # Raspberry Pi SIM number (not used directly)
-TARGET_PHONE_NUMBER = "+989376818413"  # Recipient phone number
+TARGET_PHONE_NUMBER = "+989376818413"
 
 # Setup serial for SIM800C
 sim = serial.Serial("/dev/serial0", baudrate=9600, timeout=1)
 
-# Function to send AT commands
+# AT command function
 def send_at(cmd, delay=1):
     sim.write((cmd + '\r\n').encode())
     time.sleep(delay)
     return sim.read(sim.in_waiting).decode()
 
-# Function to send SMS
+# Send SMS
 def send_sms(message, phone_number=TARGET_PHONE_NUMBER):
-    print("Sending SMS...")
+    print(f"Sending SMS: {message}")
     send_at("AT")
-    send_at("AT+CMGF=1")  # Set SMS mode to text
+    send_at("AT+CMGF=1")
     send_at(f'AT+CMGS="{phone_number}"')
-    sim.write((message + "\x1A").encode())  # Ctrl+Z to send SMS
+    sim.write((message + "\x1A").encode())
     time.sleep(3)
     print("SMS sent.")
 
-# Function to read temperature from DS18B20
+# Read temperature
 def read_temp():
     base_dir = '/sys/bus/w1/devices/'
     device_folder = glob.glob(base_dir + '28*')[0]
@@ -52,19 +51,38 @@ def read_temp():
 
 # Main loop
 try:
+    last_status = None
+    last_normal_time = 0
+
     while True:
         temp = read_temp()
         print(f"Current Temp: {temp:.2f}°C")
 
-        if temp > TEMP_HIGH:
-            send_sms(f"Alert! Temperature too high: {temp:.1f}°C")
-        elif temp < TEMP_LOW:
-            send_sms(f"Alert! Temperature too low: {temp:.1f}°C")
-        else:
-            send_sms(f"Temperature is normal: {temp:.1f}°C")
+        current_time = time.time()
 
-        time.sleep(900)  # Wait 15 minutes (900 seconds)
+        if temp > TEMP_HIGH:
+            if last_status != "high":
+                send_sms(f"Alert! Temperature too high: {temp:.1f}°C")
+                last_status = "high"
+
+        elif temp < TEMP_LOW:
+            if last_status != "low":
+                send_sms(f"Alert! Temperature too low: {temp:.1f}°C")
+                last_status = "low"
+
+        else:
+            if last_status == "high":
+                send_sms(f"Info: Temperature back to normal from high. Current: {temp:.1f}°C")
+            elif last_status == "low":
+                send_sms(f"Info: Temperature back to normal from low. Current: {temp:.1f}°C")
+            elif (current_time - last_normal_time) >= 900:
+                send_sms(f"Temperature is normal: {temp:.1f}°C")
+
+            last_status = "normal"
+            last_normal_time = current_time
+
+        time.sleep(5)  # Check temperature every 5 seconds
 
 except KeyboardInterrupt:
-    print("\nProgram interrupted by user. Exiting cleanly.")
+    print("Exiting...")
     sim.close()
