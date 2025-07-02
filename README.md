@@ -39,10 +39,32 @@ Python 3
 Enable required interfaces:
 
 sudo raspi-config
+
 # 1. Interfacing Options → 1-Wire → Enable
 # 2. Interface Options → Serial → 
 #    - Login shell: NO  
 #    - Serial interface: YES
+
+🔌 Wiring and Connections
+DS18B20 Temperature Sensor:
+
+Connect the Data pin of the DS18B20 to GPIO4 on the Raspberry Pi (Physical Pin 7).
+
+Connect the VCC pin to 3.3V on the Raspberry Pi (Physical Pin 1).
+
+Connect the GND pin to any Ground (GND) pin on the Raspberry Pi (Physical Pin 6).
+
+Place a 4.7kΩ pull-up resistor between the DS18B20 Data pin and the 3.3V line.
+
+SIM800C GSM Module:
+
+Connect the TX pin of SIM800C to the Raspberry Pi's RX pin (GPIO15, Physical Pin 10).
+
+Connect the RX pin of SIM800C to the Raspberry Pi's TX pin (GPIO14, Physical Pin 8).
+
+Connect GND of SIM800C to GND on the Raspberry Pi.
+
+Power the SIM800C module using a separate 4.7V–5V power supply (DO NOT power SIM800C directly from Raspberry Pi 5V pin to avoid damage).
 
 🧠 What You’ll Learn
 
