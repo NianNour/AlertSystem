@@ -1,6 +1,6 @@
 🌡️ Raspberry Pi Temperature Monitoring & SMS Alert System
 
-This is a real-time temperature monitoring system built using a DS18B20 temperature sensor and a SIM800C GSM module, powered by a Raspberry Pi. The system continuously reads the ambient temperature and sends SMS alerts when the temperature goes outside a safe range, or sends periodic status updates when it's normal.
+This is a real-time temperature monitoring system built using a DS18B20 temperature sensor and a SIM800C GSM module, powered by a Raspberry Pi. The system continuously reads the ambient temperature and sends SMS alerts when the temperature goes outside a safe range, or sends periodic status updates when it’s normal.
 
 🚀 Features
 
@@ -40,12 +40,16 @@ Enable required interfaces:
 
 sudo raspi-config
 
-# 1. Interfacing Options → 1-Wire → Enable
-# 2. Interface Options → Serial → 
-#    - Login shell: NO  
-#    - Serial interface: YES
+Interfacing Options → 1-Wire → Enable
+
+Interface Options → Serial →
+
+Login shell: NO
+
+Serial interface: YES
 
 🔌 Wiring and Connections
+
 DS18B20 Temperature Sensor:
 
 Connect the Data pin of the DS18B20 to GPIO4 on the Raspberry Pi (Physical Pin 7).
@@ -58,9 +62,9 @@ Place a 4.7kΩ pull-up resistor between the DS18B20 Data pin and the 3.3V line.
 
 SIM800C GSM Module:
 
-Connect the TX pin of SIM800C to the Raspberry Pi's RX pin (GPIO15, Physical Pin 10).
+Connect the TX pin of SIM800C to the Raspberry Pi’s RX pin (GPIO15, Physical Pin 10).
 
-Connect the RX pin of SIM800C to the Raspberry Pi's TX pin (GPIO14, Physical Pin 8).
+Connect the RX pin of SIM800C to the Raspberry Pi’s TX pin (GPIO14, Physical Pin 8).
 
 Connect GND of SIM800C to GND on the Raspberry Pi.
 
@@ -70,10 +74,10 @@ Power the SIM800C module using a separate 4.7V–5V power supply (DO NOT power S
 
 Interfacing digital sensors (1-Wire protocol) with Raspberry Pi
 
-Communicating with GSM modules via 
-UART and AT commands
+Communicating with GSM modules via UART and AT commands
 
 Reading and parsing raw temperature data in Python
 
 Automating condition-based alerts using time and logic
+
 Building lightweight, headless monitoring systems with Raspberry Pi
