@@ -8,7 +8,7 @@ This is a real-time temperature monitoring system built using a **DS18B20 temper
 
 - 📡 Sends SMS alerts via AT commands over UART to the SIM800C GSM module  
 - 🌡️ Monitors ambient temperature using a DS18B20 digital sensor  
-- 📈 Sends status updates every 15 minutes when temperature is in normal range  
+- 📈 Sends status updates every 15 minutes (and in the begining) when temperature is in normal range  
 - ⚠️ Sends immediate alerts for high (> 30°C) or low (< 10°C) temperature  
 - ✅ Notifies when temperature returns to normal after a warning  
 
